@@ -6,7 +6,7 @@ $exception = [];
 
 glossarize()->define('missing', function($code) {
     foreach ($languages as $language) {
-        $code->strictStringLanguage($language, 'lang/'.$language.'/glossarize_'.$language.'.php');
+        $code->strictStringLanguage($language, 'lang/'.$language);
     }
 });
 
@@ -16,6 +16,6 @@ glossarize()->define('missing2', function($code) {
 
 glossarize()->define('missing3', function($code) {
     foreach ($languages as $language) {
-        $code->strictScope($language, 'lang/'.$language.'/glossarize_'.$language.'.php');
+        $code->strictScope($language, 'src/', 'lang/'.$language);
     }
 });
