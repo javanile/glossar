@@ -1,19 +1,11 @@
 {
-    "name": "larawal/installer",
-    "description": "Create your Larawal project based on Laravel.",
+    "name": "glossarize/glossarize",
+    "description": "Text static analysis tool.",
     "version": "1.0.0",
     "license": "MIT",
     "authors": [
         {
-            "name": "passasooz",
-            "email": "francescopassanante@gmail.com"
-        },
-        {
-            "name": "henrygri",
-            "email": "fgrieco9045@gmail.com"
-        },
-        {
-            "name": "francescobianco",
+            "name": "Francesco Bianco",
             "email": "bianco@javanile.org"
         }
     ],
@@ -29,16 +21,19 @@
         "phpunit/phpunit": "^8.0"
     },
     "bin": [
-        "bin/larawal"
+        "bin/glossarize"
     ],
     "autoload": {
         "psr-4": {
-            "Larawal\\Installer\\Console\\": "src/"
-        }
+            "Glossarize\\": "src/"
+        },
+        "files": [
+            "src/Functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
-            "Larawal\\Installer\\Console\\Tests\\": "tests/"
+            "Glossarize\\Tests\\": "tests/"
         }
     },
     "scripts": {
