@@ -1,6 +1,6 @@
 <?php
 
-namespace Larawal\Installer\Console;
+namespace Glossarize\Console\Commands;
 
 use GuzzleHttp\Client;
 use RuntimeException;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Larawal\Installer\Console;
+namespace Glossarize\Console\Commands;
 
 use GuzzleHttp\Client;
 use RuntimeException;
@@ -14,7 +14,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 use ZipArchive;
 
-class FetchCommand extends BaseCommand
+class CheckCommand extends BaseCommand
 {
     /**
      * Configure the command options.
@@ -24,7 +24,7 @@ class FetchCommand extends BaseCommand
     protected function configure()
     {
         $this
-            ->setName('fetch')
+            ->setName('check')
             ->setDescription('Fetch brick from Larawal registry')
             ->addArgument('brick', InputArgument::REQUIRED)
             ->addOption('path', null, InputOption::VALUE_REQUIRED, 'Install on specific path', getcwd());

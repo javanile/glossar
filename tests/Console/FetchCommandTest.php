@@ -2,7 +2,7 @@
 
 namespace Laravel\Installer\Console\Tests;
 
-use Larawal\Installer\Console\FetchCommand;
+use Larawal\Installer\Console\CheckCommand;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -20,7 +20,7 @@ class FetchCommandTest extends TestCase
         }
 
         $app = new Application('Larawal');
-        $app->add(new FetchCommand);
+        $app->add(new CheckCommand);
 
         $tester = new CommandTester($app->find('fetch'));
 

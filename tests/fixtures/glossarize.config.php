@@ -2,19 +2,23 @@
 
 $languages = [ 'en', 'it' ];
 
-$exception = [];
-
-glossarize()->define('missing', function($code) {
+glossarize()->check('missing', function($code) {
     foreach ($languages as $language) {
-        $code->strictStringLanguage($language, 'lang/'.$language);
+        $code->scan('lang/'.$language)->strictStringLanguage($language);
     }
 });
 
-glossarize()->define('missing2', function($code) {
+glossarize()->check('missing2', function($code) {
     $code->strictSourceCode(['src/']);
 });
 
-glossarize()->define('missing3', function($code) {
+glossarize()->check('missing3', function($code) {
+    foreach ($languages as $language) {
+        $code->strictScope($language, 'src/', 'lang/'.$language);
+    }
+});
+
+glossarize()->check('missing3', function($code) {
     foreach ($languages as $language) {
         $code->strictScope($language, 'src/', 'lang/'.$language);
     }
