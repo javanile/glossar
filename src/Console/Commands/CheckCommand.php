@@ -25,9 +25,8 @@ class CheckCommand extends BaseCommand
     {
         $this
             ->setName('check')
-            ->setDescription('Fetch brick from Larawal registry')
-            ->addArgument('brick', InputArgument::REQUIRED)
-            ->addOption('path', null, InputOption::VALUE_REQUIRED, 'Install on specific path', getcwd());
+            ->setDescription('Run one or all checks')
+            ->addArgument('check-name', InputArgument::OPTIONAL);
     }
 
     /**
@@ -42,20 +41,15 @@ class CheckCommand extends BaseCommand
     {
         $this->checkExtensions();
 
-        $brick = $input->getArgument('brick');
-        $directory = $input->getOption('path');
+        $selectedCheckName = $input->getArgument('check-name');
 
-        /*
-        if (! $input->getOption('force')) {
-            $this->verifyApplicationDoesntExist($directory);
+        $checks = $this->getApplication()->getConfig()->getChecks();
+
+        foreach ($checks as $checkName => $check) {
+            $check->run();
         }
-        */
 
         $output->writeln('<info>Registry lookup...</info>');
-
-        $brickUrl = $this->registryLookup($brick);
-
-        $this->fetchBrick($brickUrl, $directory, $output);
 
         $output->writeln('<comment>Brick ready! Build something amazing.</comment>');
 

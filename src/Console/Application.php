@@ -34,4 +34,12 @@ class Application extends \Symfony\Component\Console\Application
 
         $this->config = $config;
     }
+
+    /**
+     *
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
 }

@@ -7,6 +7,11 @@ class Config
     /**
      *
      */
+    protected $source;
+
+    /**
+     *
+     */
     protected $checks;
 
     /**
@@ -14,9 +19,9 @@ class Config
      *
      * @param $config
      */
-    public function __construct()
+    public function __construct($source)
     {
-
+        $this->source = $source;
     }
 
     /**
@@ -24,6 +29,14 @@ class Config
      */
     public function check($checkName, $checkOptions)
     {
-        $this->checks[$checkName] = $checkOptions;
+        $this->checks[$checkName] = new Check($this->source, $checkOptions);
+    }
+
+    /**
+     *
+     */
+    public function getChecks()
+    {
+        return $this->checks;
     }
 }
