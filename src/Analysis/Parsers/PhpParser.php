@@ -21,6 +21,7 @@ class PhpParser
             if (!$isValue && $tokenName === 'T_DOUBLE_ARROW') {
                 $isValue = true;
             } elseif ($isValue && $tokenName === 'T_CONSTANT_ENCAPSED_STRING') {
+                $token[1] = stripslashes(trim($token[1], '\'"'));
                 $strings[] = $token;
                 $isValue = false;
             } elseif ($isValue && $tokenName !== 'T_WHITESPACE') {

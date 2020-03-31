@@ -26,7 +26,8 @@ class CheckCommand extends BaseCommand
         $this
             ->setName('check')
             ->setDescription('Run one or all checks')
-            ->addArgument('check-name', InputArgument::OPTIONAL);
+            ->addArgument('check-name', InputArgument::OPTIONAL)
+            ->addOption('--stop-on-failure', null, InputOption::VALUE_NONE, 'Stop execution if check fail');
     }
 
     /**
@@ -48,12 +49,11 @@ class CheckCommand extends BaseCommand
         $config->bootstrap();
 
         foreach ($config->getChecks() as $checkName => $check) {
-            $check->run();
+            $output->writeln("<info>===> {$checkName}</info>");
+            $check->execute([
+                'stop-on-failure' => $input->getOption('stop-on-failure'),
+            ]);
         }
-
-        $output->writeln('<info>Registry lookup...</info>');
-
-        $output->writeln('<comment>Brick ready! Build something amazing.</comment>');
 
         return 0;
     }

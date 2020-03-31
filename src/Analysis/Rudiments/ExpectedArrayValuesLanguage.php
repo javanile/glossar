@@ -15,24 +15,30 @@ trait ExpectedArrayValuesLanguage
         $files = $this->getFiles();
         $parser = $this->getConfig()->getParser();
         $spellChecker = $this->getConfig()->getSpellChecker();
+        //$output = $this->getConfig()->getSpellChecker();
+        $stopOnFailure = $this->get('stop-on-failure');
 
+        $failure = false;
         foreach ($files as $file) {
-
-            echo "=== {$relativePath} ===\n";
-            $strings = $parser->getArrayStringValues($file);
-            foreach ($strings as $string) {
-                $line = $string[2];
-                echo "$string[2]: $string[1]\n";
-                $misspellings = $spellChecker->check($string[1], [$language]);
+            $strings = $parser->getArrayStringValues($file['filename']);
+            foreach ($strings as $stringData) {
+                $string = $stringData[1];
+                $stringLine = $stringData[2];
+                $misspellings = $spellChecker->check($string, [$language]);
                 foreach ($misspellings as $misspelling) {
                     $word = $misspelling->getWord();
-                    $wordLine = $line + $misspelling->getLineNumber() - 1 ;
-                    #$suggestions = $misspelling->getSuggestions();
-                    #$suggestionsMessage = $suggestions ? '(suggestions: ' . implode(', ', $suggestions) . ')' : '';
-                    #echo "$wordLine: $word $suggestionsMessage\n";
-                    echo "$wordLine: $word\n";
+                    $wordLine = $stringLine + $misspelling->getLineNumber() - 1 ;
+                    echo "[FAIL] {$file['relative']}($wordLine): Misspelled word '{$word}' for language '{$language}' in '{$string}.'\n";
+                    if ($stopOnFailure) {
+                        #$suggestions = $misspelling->getSuggestions();
+                        #echo $suggestions ? '(SUGGESTION!) Replace with one of this: ' . implode(', ', $suggestions) . "\n" : '';
+                        exit(1);
+                    }
+                    $failure = true;
                 }
             }
         }
+
+        return $this;
     }
 }

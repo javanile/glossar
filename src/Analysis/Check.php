@@ -28,8 +28,10 @@ class Check
     /**
      *
      */
-    public function run()
+    public function execute($vars = [])
     {
+        $this->source->setVars($vars);
+
         if (is_callable($this->options)) {
             call_user_func_array($this->options, [$this->source]);
         } else {

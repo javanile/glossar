@@ -51,6 +51,16 @@ class Source
     }
 
     /**
+     * @param $vars
+     */
+    public function setVars($vars)
+    {
+        foreach ($vars as $var => $value) {
+            $this->set($var, $value);
+        }
+    }
+
+    /**
      * @param $var
      */
     public function get($var)
@@ -99,6 +109,24 @@ class Source
      */
     public function scan($dir)
     {
-        return new Source($this->getConfig(), $this->pattern, $this->path . '/' . $dir);
+        $source = new Source($this->getConfig(), $this->pattern, $this->path . '/' . $dir);
+
+        $source->setVars($this->vars);
+
+        return $source;
+    }
+
+    /**
+     * @param $var
+     */
+    public function ignoreWords($words)
+    {
+        if (empty($this->vars['ignore-words'])) {
+            $this->vars['ignore-words'] = [];
+        }
+
+        $this->vars['ignore-words'] = array_merge($this->vars['ignore-words'], $words);
+
+        return $this;
     }
 }

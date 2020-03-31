@@ -22,7 +22,7 @@ abstract class BaseCommand extends Command
      */
     protected function credits(OutputInterface $output)
     {
-        $output->writeln("Glossarize 0.1.0 by Francesco Bianco and contributors.");
+        $output->writeln("Glossarize 0.1.0 by Francesco Bianco and contributors.\n");
     }
 
     /**
