@@ -1,4 +1,4 @@
-# glossarize
+# Glossarize
 
 
 ## Install
