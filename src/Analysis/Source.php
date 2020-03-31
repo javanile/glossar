@@ -2,8 +2,18 @@
 
 namespace Glossarize\Analysis;
 
-class Source extends Pattern
+class Source
 {
+    /**
+     *
+     */
+    protected $vars;
+
+    /**
+     *
+     */
+    protected $glob;
+
     /**
      * Config constructor.
      *
@@ -11,20 +21,55 @@ class Source extends Pattern
      */
     public function __construct($glob)
     {
-        //$this->options = $options;
-        pattern::__construct($glob);
+        $this->glob = $glob;
+    }
+
+    /**
+     * @param $var
+     */
+    public function get($var)
+    {
+        return $this->vars[$var];
+    }
+
+    /**
+     * @param $var
+     */
+    public function set($var, $value)
+    {
+        $this->vars[$var] = $value;
     }
 
     /**
      *
      */
-    public function run()
+    public function stringsLanguageIs()
     {
-        if (is_callable($this->options)) {
-            call_user_func_array($this->options, []);
-        } else {
-            die("Check options are not callable");
-        }
+
+    }
+
+    /**
+     *
+     */
+    public function expectedArrayValuesLanguageIs()
+    {
+
+    }
+
+    /**
+     *
+     */
+    public function strictSourceCode()
+    {
+
+    }
+
+    /**
+     *
+     */
+    public function strictScope()
+    {
+
     }
 
     /**
@@ -32,6 +77,6 @@ class Source extends Pattern
      */
     public function scan($glob)
     {
-        return new Pattern($glob);
+        return new Source($glob);
     }
 }

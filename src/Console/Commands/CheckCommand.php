@@ -43,9 +43,11 @@ class CheckCommand extends BaseCommand
 
         $selectedCheckName = $input->getArgument('check-name');
 
-        $checks = $this->getApplication()->getConfig()->getChecks();
+        $config = $this->getApplication()->getConfig();
 
-        foreach ($checks as $checkName => $check) {
+        $config->bootstrap();
+
+        foreach ($config->getChecks() as $checkName => $check) {
             $check->run();
         }
 

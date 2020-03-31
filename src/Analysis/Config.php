@@ -12,7 +12,7 @@ class Config
     /**
      *
      */
-    protected $checks;
+    protected $config;
 
     /**
      * Config constructor.
@@ -22,6 +22,18 @@ class Config
     public function __construct($source)
     {
         $this->source = $source;
+        $this->config = [
+            'init' => [],
+            'check' => [],
+        ];
+    }
+
+    /**
+     *
+     */
+    public function init($initOptions)
+    {
+        $this->config['init'][] = $initOptions;
     }
 
     /**
@@ -29,7 +41,21 @@ class Config
      */
     public function check($checkName, $checkOptions)
     {
-        $this->checks[$checkName] = new Check($this->source, $checkOptions);
+        $this->config['check'][$checkName] = new Check($this->source, $checkOptions);
+    }
+
+    /**
+     *
+     */
+    public function bootstrap()
+    {
+        foreach ($this->config['init'] as $init) {
+            if (is_callable($init)) {
+                call_user_func_array($init, [$this->source]);
+            } else {
+                die("Init options are not callable");
+            }
+        }
     }
 
     /**
@@ -37,6 +63,6 @@ class Config
      */
     public function getChecks()
     {
-        return $this->checks;
+        return $this->config['check'];
     }
 }

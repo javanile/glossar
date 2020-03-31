@@ -1,10 +1,19 @@
 <?php
 
-$languages = ['en', 'it'];
+glossarize()->init(function($source) {
+    $source->set('languages', ['en', 'it']);
+});
 
-glossarize()->check('missing', function($source) use ($languages) {
-    foreach ($languages as $language) {
-        $source->scan('lang/'.$language)->strictStringLanguage($language);
+glossarize()->check('Expected array string values language is', function($source) {
+    foreach ($source->get('languages') as $lang) {
+        $source->scan('lang/'.$lang)->expectedArrayValuesLanguageIs($lang);
+    }
+});
+
+/*
+glossarize()->check('Expected array string values language is', function($source) {
+    foreach ($source->get('languages') as $lang) {
+        $source->scan('lang/'.$lang)->expectedStringsLanguageIs($lang);
     }
 });
 
@@ -23,3 +32,4 @@ glossarize()->check('missing3', function($source) use ($languages) {
         $source->strictScope($language, 'src/', 'lang/'.$language);
     }
 });
+*/
