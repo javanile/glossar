@@ -27,10 +27,10 @@ class Source
      *
      * @param $config
      */
-    public function __construct($parser, $pattern)
+    public function __construct($config, $pattern)
     {
         $this->vars = [];
-        $this->parser = $parser;
+        $this->config = $config;
         $this->pattern = $pattern;
     }
 
@@ -53,9 +53,9 @@ class Source
     /**
      *
      */
-    protected function getParser()
+    protected function getConfig()
     {
-        return $this->parser;
+        return $this->config;
     }
 
     /**
@@ -69,18 +69,29 @@ class Source
     /**
      *
      */
-    public function expectedArrayValuesLanguageIs()
+    public function expectedArrayValuesLanguageIs($language)
     {
         $basePath = getcwd();
         $files = Glob::glob(Path::makeAbsolute('lang/array/**/*.php', $basePath));
-        $parser = $this->getParser();
+        $parser = $this->getConfig()->getParser();
+        $spellChecker = $this->getConfig()->getSpellChecker();
 
         foreach ($files as $file) {
             $relativePath = Path::makeRelative($file, $basePath);
-            echo "=== ${$relativePath} ===\n";
+            echo "=== {$relativePath} ===\n";
             $strings = $parser->getArrayStringValues($file);
             foreach ($strings as $string) {
+                $line = $string[2];
                 echo "$string[2]: $string[1]\n";
+                $misspellings = $spellChecker->check($string[1], [$language]);
+                foreach ($misspellings as $misspelling) {
+                    $word = $misspelling->getWord();
+                    $wordLine = $line + $misspelling->getLineNumber() - 1 ;
+                    #$suggestions = $misspelling->getSuggestions();
+                    #$suggestionsMessage = $suggestions ? '(suggestions: ' . implode(', ', $suggestions) . ')' : '';
+                    #echo "$wordLine: $word $suggestionsMessage\n";
+                    echo "$wordLine: $word\n";
+                }
             }
         }
     }
@@ -88,7 +99,37 @@ class Source
     /**
      *
      */
-    public function strictSourceCode()
+    public function expectedStringsLanguageIs($language)
+    {
+        $basePath = getcwd();
+        $files = Glob::glob(Path::makeAbsolute('lang/array/**/*.php', $basePath));
+        $parser = $this->getConfig()->getParser();
+        $spellChecker = $this->getConfig()->getSpellChecker();
+
+        foreach ($files as $file) {
+            $relativePath = Path::makeRelative($file, $basePath);
+            echo "=== {$relativePath} ===\n";
+            $strings = $parser->getArrayStringValues($file);
+            foreach ($strings as $string) {
+                $line = $string[2];
+                echo "$string[2]: $string[1]\n";
+                $misspellings = $spellChecker->check($string[1], [$language]);
+                foreach ($misspellings as $misspelling) {
+                    $word = $misspelling->getWord();
+                    $wordLine = $line + $misspelling->getLineNumber() - 1 ;
+                    #$suggestions = $misspelling->getSuggestions();
+                    #$suggestionsMessage = $suggestions ? '(suggestions: ' . implode(', ', $suggestions) . ')' : '';
+                    #echo "$wordLine: $word $suggestionsMessage\n";
+                    echo "$wordLine: $word\n";
+                }
+            }
+        }
+    }
+
+    /**
+     *
+     */
+    public function expectedStrictSourceCode()
     {
 
     }
@@ -106,6 +147,6 @@ class Source
      */
     public function scan($pattern)
     {
-        return new Source($this->getParser(), $pattern);
+        return new Source($this->getConfig(), $pattern);
     }
 }

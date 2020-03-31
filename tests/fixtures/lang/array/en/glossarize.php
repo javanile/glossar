@@ -11,7 +11,7 @@ $array = array(
 );
 
 return [
-    'LBL_NEW_VERSION_AVAILABLE' => 'Version Please update!',
+    'LBL_NEW_VERSION_AVAILABLE' => 'Version Cavallo Please update!',
 ];
 
 

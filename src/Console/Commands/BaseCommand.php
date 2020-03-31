@@ -18,6 +18,14 @@ use ZipArchive;
 abstract class BaseCommand extends Command
 {
     /**
+     *
+     */
+    protected function credits(OutputInterface $output)
+    {
+        $output->writeln("Glossarize 0.1.0 by Francesco Bianco and contributors.");
+    }
+
+    /**
      * Verify that the application does not already exist.
      *
      * @param  string  $directory

@@ -2,8 +2,20 @@
 
 namespace Glossarize\Analysis;
 
+use PhpSpellcheck\Spellchecker\Aspell;
+
 class Config
 {
+    /**
+     *
+     */
+    protected $config;
+
+    /**
+     *
+     */
+    protected $parser;
+
     /**
      *
      */
@@ -12,20 +24,22 @@ class Config
     /**
      *
      */
-    protected $config;
+    protected $spellChecker;
 
     /**
      * Config constructor.
      *
      * @param $config
      */
-    public function __construct($source)
+    public function __construct()
     {
         $this->config = [
             'init' => [],
             'check' => [],
         ];
-        $this->source = $source;
+
+        $this->parser = new Parser;
+        $this->source = new Source($this, '*');
     }
 
     /**
@@ -34,6 +48,14 @@ class Config
     public function getParser()
     {
         return $this->parser;
+    }
+
+    /**
+     *
+     */
+    public function getSpellChecker()
+    {
+        return $this->spellChecker;
     }
 
     /**
@@ -64,6 +86,8 @@ class Config
                 die("Init options are not callable");
             }
         }
+
+        $this->spellChecker = Aspell::create();
     }
 
     /**

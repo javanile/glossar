@@ -39,7 +39,7 @@ class CheckCommand extends BaseCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->checkExtensions();
+        $this->credits($output);
 
         $selectedCheckName = $input->getArgument('check-name');
 
