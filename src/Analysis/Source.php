@@ -71,11 +71,13 @@ class Source
      */
     public function expectedArrayValuesLanguageIs()
     {
-        $files = Glob::glob(Path::makeAbsolute('lang/array/**/*.php', getcwd()));
+        $basePath = getcwd();
+        $files = Glob::glob(Path::makeAbsolute('lang/array/**/*.php', $basePath));
         $parser = $this->getParser();
 
         foreach ($files as $file) {
-            echo "=== ${file} ===\n";
+            $relativePath = Path::makeRelative($file, $basePath);
+            echo "=== ${$relativePath} ===\n";
             $strings = $parser->getArrayStringValues($file);
             foreach ($strings as $string) {
                 echo "$string[2]: $string[1]\n";
