@@ -24,15 +24,12 @@ class DefaultCommand extends BaseCommand
     protected function configure()
     {
         $this
-            ->setName('fetch')
-            ->setDescription('Fetch brick from Larawal registry')
-            ->addArgument('brick', InputArgument::REQUIRED)
-            ->addOption('path', null, InputOption::VALUE_REQUIRED, 'Install on specific path', getcwd());
+            ->setName('default')
+            ->setDescription('Run glossary analysis as standard PHP package');
     }
 
     /**
      * Execute the command.
-     *
      *
      * @param  \Symfony\Component\Console\Input\InputInterface  $input
      * @param  \Symfony\Component\Console\Output\OutputInterface  $output
@@ -40,24 +37,15 @@ class DefaultCommand extends BaseCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->checkExtensions();
+        $this->credits($output);
 
-        $brick = $input->getArgument('brick');
-        $directory = $input->getOption('path');
+        $config = $this->getApplication()->getConfig();
 
-        /*
-        if (! $input->getOption('force')) {
-            $this->verifyApplicationDoesntExist($directory);
-        }
-        */
+        $config->bootstrap();
 
-        $output->writeln('<info>Registry lookup...</info>');
+        $source = $config->getSource();
 
-        $brickUrl = $this->registryLookup($brick);
-
-        $this->fetchBrick($brickUrl, $directory, $output);
-
-        $output->writeln('<comment>Brick ready! Build something amazing.</comment>');
+        $source->scan('src')->glossaryAnalysis();
 
         return 0;
     }

@@ -3,9 +3,15 @@
 namespace Glossarize\Analysis;
 
 use PhpSpellcheck\Spellchecker\Aspell;
+use Glossarize\Analysis\Parsers\DefaultParser;
 
 class Config
 {
+    /**
+     *
+     */
+    protected $cwd;
+
     /**
      *
      */
@@ -31,15 +37,26 @@ class Config
      *
      * @param $config
      */
-    public function __construct()
+    public function __construct($cwd)
     {
+        $this->cwd = $cwd;
+
         $this->config = [
             'init' => [],
             'check' => [],
         ];
 
-        $this->parser = new Parser;
-        $this->source = new Source($this, '*');
+        $this->parser = new DefaultParser;
+        $this->source = new Source($this, '**/*.php', $this->cwd);
+        $this->spellChecker = null;
+    }
+
+    /**
+     *
+     */
+    public function getCwd()
+    {
+        return $this->cwd;
     }
 
     /**
@@ -48,6 +65,14 @@ class Config
     public function getParser()
     {
         return $this->parser;
+    }
+
+    /**
+     *
+     */
+    public function getSource()
+    {
+        return $this->source;
     }
 
     /**

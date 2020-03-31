@@ -2,6 +2,8 @@
 
 namespace Glossarize\Analysis\Parsers;
 
+use Stringy\StaticStringy as S;
+
 class PhpParser
 {
     /**
@@ -27,5 +29,31 @@ class PhpParser
         }
 
         return $strings;
+    }
+
+    /**
+     *
+     */
+    public static function getGlossaryWords($file)
+    {
+        //var_dump($file);
+        $code = file_get_contents($file);
+        $tokens = token_get_all($code, TOKEN_PARSE);
+        $words = [];
+
+        $validWordsToken = ['T_STRING'];
+        foreach ($tokens as $token) {
+            $tokenName = is_array($token) ? token_name($token[0]) : $token;
+            if (in_array($tokenName, $validWordsToken)) {
+                $tokenWords = explode('_', S::underscored($token[1]));
+                foreach ($tokenWords as $word) {
+                    $words[$word][] = [$file, $token[2]];
+                }
+            }
+            //var_dump($tokenName, $token);
+            //die();
+        }
+
+        return $words;
     }
 }

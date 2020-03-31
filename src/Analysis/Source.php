@@ -7,6 +7,10 @@ use Webmozart\PathUtil\Path;
 
 class Source
 {
+    use Rudiments\GlossaryAnalysis;
+    use Rudiments\ExpectedStringsLanguage;
+    use Rudiments\ExpectedArrayValuesLanguage;
+
     /**
      *
      */
@@ -23,15 +27,27 @@ class Source
     protected $pattern;
 
     /**
+     *
+     */
+    protected $path;
+
+    /**
+     *
+     */
+    protected $files;
+
+    /**
      * Config constructor.
      *
      * @param $config
      */
-    public function __construct($config, $pattern)
+    public function __construct($config, $pattern, $path)
     {
         $this->vars = [];
         $this->config = $config;
         $this->pattern = $pattern;
+        $this->path = $path;
+        $this->files = null;
     }
 
     /**
@@ -61,92 +77,28 @@ class Source
     /**
      *
      */
-    public function stringsLanguageIs()
+    protected function getFiles()
     {
-
-    }
-
-    /**
-     *
-     */
-    public function expectedArrayValuesLanguageIs($language)
-    {
-        $basePath = getcwd();
-        $files = Glob::glob(Path::makeAbsolute('lang/array/**/*.php', $basePath));
-        $parser = $this->getConfig()->getParser();
-        $spellChecker = $this->getConfig()->getSpellChecker();
-
-        foreach ($files as $file) {
-            $relativePath = Path::makeRelative($file, $basePath);
-            echo "=== {$relativePath} ===\n";
-            $strings = $parser->getArrayStringValues($file);
-            foreach ($strings as $string) {
-                $line = $string[2];
-                echo "$string[2]: $string[1]\n";
-                $misspellings = $spellChecker->check($string[1], [$language]);
-                foreach ($misspellings as $misspelling) {
-                    $word = $misspelling->getWord();
-                    $wordLine = $line + $misspelling->getLineNumber() - 1 ;
-                    #$suggestions = $misspelling->getSuggestions();
-                    #$suggestionsMessage = $suggestions ? '(suggestions: ' . implode(', ', $suggestions) . ')' : '';
-                    #echo "$wordLine: $word $suggestionsMessage\n";
-                    echo "$wordLine: $word\n";
-                }
+        if ($this->files === null) {
+            $cwd = $this->getConfig()->getCwd();
+            $this->files = [];
+            $files = Glob::glob(Path::makeAbsolute($this->pattern, $this->path));
+            foreach ($files as $file) {
+                $this->files[] = [
+                    'filename' => $file,
+                    'relative' => Path::makeRelative($file, $cwd),
+                ];
             }
         }
+
+        return $this->files;
     }
 
     /**
      *
      */
-    public function expectedStringsLanguageIs($language)
+    public function scan($dir)
     {
-        $basePath = getcwd();
-        $files = Glob::glob(Path::makeAbsolute('lang/array/**/*.php', $basePath));
-        $parser = $this->getConfig()->getParser();
-        $spellChecker = $this->getConfig()->getSpellChecker();
-
-        foreach ($files as $file) {
-            $relativePath = Path::makeRelative($file, $basePath);
-            echo "=== {$relativePath} ===\n";
-            $strings = $parser->getArrayStringValues($file);
-            foreach ($strings as $string) {
-                $line = $string[2];
-                echo "$string[2]: $string[1]\n";
-                $misspellings = $spellChecker->check($string[1], [$language]);
-                foreach ($misspellings as $misspelling) {
-                    $word = $misspelling->getWord();
-                    $wordLine = $line + $misspelling->getLineNumber() - 1 ;
-                    #$suggestions = $misspelling->getSuggestions();
-                    #$suggestionsMessage = $suggestions ? '(suggestions: ' . implode(', ', $suggestions) . ')' : '';
-                    #echo "$wordLine: $word $suggestionsMessage\n";
-                    echo "$wordLine: $word\n";
-                }
-            }
-        }
-    }
-
-    /**
-     *
-     */
-    public function expectedStrictSourceCode()
-    {
-
-    }
-
-    /**
-     *
-     */
-    public function strictScope()
-    {
-
-    }
-
-    /**
-     *
-     */
-    public function scan($pattern)
-    {
-        return new Source($this->getConfig(), $pattern);
+        return new Source($this->getConfig(), $this->pattern, $this->path . '/' . $dir);
     }
 }

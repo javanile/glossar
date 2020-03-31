@@ -1,10 +1,10 @@
 <?php
 
-namespace Glossarize\Analysis;
+namespace Glossarize\Analysis\Parsers;
 
 use Glossarize\Analysis\Parsers\PhpParser;
 
-class Parser
+class DefaultParser
 {
     /**
      *
@@ -12,5 +12,13 @@ class Parser
     public function getArrayStringValues($file)
     {
         return PhpParser::getArrayStringValues($file);
+    }
+
+    /**
+     *
+     */
+    public function getGlossaryWords($file)
+    {
+        return PhpParser::getGlossaryWords($file);
     }
 }

@@ -32,3 +32,9 @@ php box.phar build
 [[ -f composer.lock.tmp ]] && mv composer.lock.tmp composer.lock
 [[ -f box.json.dist ]] && rm box.json.dist
 [[ -f box.phar ]] && rm box.phar
+
+version=$(cat composer.json | grep version | head -n 1 | sed 's/.*version//' | tr -d $'\n\r\t ,":=\'')
+
+git add .
+git commit -am "Release the new ${version}"
+git push
