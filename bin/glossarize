@@ -7,7 +7,8 @@ if (file_exists(__DIR__.'/../../../autoload.php')) {
     require __DIR__.'/../vendor/autoload.php';
 }
 
-$source = new Glossarize\Analysis\Source('*');
+$parser = new Glossarize\Analysis\Parser;
+$source = new Glossarize\Analysis\Source($parser, '*');
 $config = new Glossarize\Analysis\Config($source);
 
 try {

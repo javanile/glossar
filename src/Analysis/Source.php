@@ -2,6 +2,9 @@
 
 namespace Glossarize\Analysis;
 
+use Webmozart\Glob\Glob;
+use Webmozart\PathUtil\Path;
+
 class Source
 {
     /**
@@ -12,16 +15,23 @@ class Source
     /**
      *
      */
-    protected $glob;
+    protected $config;
+
+    /**
+     *
+     */
+    protected $pattern;
 
     /**
      * Config constructor.
      *
      * @param $config
      */
-    public function __construct($glob)
+    public function __construct($parser, $pattern)
     {
-        $this->glob = $glob;
+        $this->vars = [];
+        $this->parser = $parser;
+        $this->pattern = $pattern;
     }
 
     /**
@@ -43,6 +53,14 @@ class Source
     /**
      *
      */
+    protected function getParser()
+    {
+        return $this->parser;
+    }
+
+    /**
+     *
+     */
     public function stringsLanguageIs()
     {
 
@@ -53,7 +71,16 @@ class Source
      */
     public function expectedArrayValuesLanguageIs()
     {
+        $files = Glob::glob(Path::makeAbsolute('lang/array/**/*.php', getcwd()));
+        $parser = $this->getParser();
 
+        foreach ($files as $file) {
+            echo "=== ${file} ===\n";
+            $strings = $parser->getArrayStringValues($file);
+            foreach ($strings as $string) {
+                echo "$string[2]: $string[1]\n";
+            }
+        }
     }
 
     /**
@@ -75,8 +102,8 @@ class Source
     /**
      *
      */
-    public function scan($glob)
+    public function scan($pattern)
     {
-        return new Source($glob);
+        return new Source($this->getParser(), $pattern);
     }
 }

@@ -21,11 +21,19 @@ class Config
      */
     public function __construct($source)
     {
-        $this->source = $source;
         $this->config = [
             'init' => [],
             'check' => [],
         ];
+        $this->source = $source;
+    }
+
+    /**
+     *
+     */
+    public function getParser()
+    {
+        return $this->parser;
     }
 
     /**

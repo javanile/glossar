@@ -1,12 +1,12 @@
 <?php
 
 glossarize()->init(function($source) {
-    $source->set('languages', ['en', 'it']);
+    $source->set('languages', ['en', /*'it'*/]);
 });
 
 glossarize()->check('Expected array string values language is', function($source) {
     foreach ($source->get('languages') as $lang) {
-        $source->scan('lang/'.$lang)->expectedArrayValuesLanguageIs($lang);
+        $source->scan('lang/array/'.$lang)->expectedArrayValuesLanguageIs($lang);
     }
 });
 
