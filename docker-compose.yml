@@ -1,13 +1,13 @@
 version: '3'
 
 services:
-  php:
-    build: .
-    volumes:
-      - .:/app
 
-  phpunit:
+  php: &php
     build: .
-    entrypoint: ["/app/vendor/bin/phpunit"]
     volumes:
       - .:/app
+      - ./.tmp:/root
+
+  composer: { <<: *php, entrypoint: ["composer"] }
+
+  phpunit: { <<: *php, entrypoint: ["/app/vendor/bin/phpunit"] }
