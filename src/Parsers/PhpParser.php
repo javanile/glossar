@@ -2,12 +2,10 @@
 
 namespace Javanile\Glossar\Parsers;
 
-use Stringy\StaticStringy as S;
-
 class PhpParser
 {
     /**
-     *
+     * @param mixed $string
      */
     public static function sanitizeString($string)
     {
@@ -15,7 +13,7 @@ class PhpParser
     }
 
     /**
-     *
+     * @param mixed $file
      */
     public static function getArrayStringValues($file)
     {
@@ -41,7 +39,7 @@ class PhpParser
     }
 
     /**
-     *
+     * @param mixed $file
      */
     public static function getStrings($file)
     {
@@ -62,7 +60,7 @@ class PhpParser
     }
 
     /**
-     *
+     * @param mixed $file
      */
     public static function getGlossaryWords($file)
     {
@@ -74,7 +72,7 @@ class PhpParser
         $validWordsToken = [
             'T_STRING',
             'T_CONSTANT_ENCAPSED_STRING',
-            'T_VARIABLE'
+            'T_VARIABLE',
         ];
 
         foreach ($tokens as $token) {

@@ -8,7 +8,7 @@ use Webmozart\PathUtil\Path;
 trait StringsLanguage
 {
     /**
-     *
+     * @param mixed $language
      */
     public function expectedStringsLanguageIs($language)
     {
@@ -27,10 +27,10 @@ trait StringsLanguage
                 $misspellings = $spellChecker->check($string[1], [$language]);
                 foreach ($misspellings as $misspelling) {
                     $word = $misspelling->getWord();
-                    $wordLine = $line + $misspelling->getLineNumber() - 1 ;
-                    #$suggestions = $misspelling->getSuggestions();
-                    #$suggestionsMessage = $suggestions ? '(suggestions: ' . implode(', ', $suggestions) . ')' : '';
-                    #echo "$wordLine: $word $suggestionsMessage\n";
+                    $wordLine = $line + $misspelling->getLineNumber() - 1;
+                    //$suggestions = $misspelling->getSuggestions();
+                    //$suggestionsMessage = $suggestions ? '(suggestions: ' . implode(', ', $suggestions) . ')' : '';
+                    //echo "$wordLine: $word $suggestionsMessage\n";
                     echo "$wordLine: $word\n";
                 }
             }

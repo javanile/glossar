@@ -2,13 +2,13 @@
 
 namespace Javanile\Glossar\Parsers;
 
-use Stringy\StaticStringy as S;
 use Glossarize\Analysis\Parsers\PhpParser;
+use Stringy\StaticStringy as S;
 
 class DefaultParser
 {
     /**
-     *
+     * @param mixed $file
      */
     public function getArrayStringValues($file)
     {
@@ -16,7 +16,7 @@ class DefaultParser
     }
 
     /**
-     *
+     * @param mixed $file
      */
     public function getStrings($file)
     {
@@ -24,7 +24,7 @@ class DefaultParser
     }
 
     /**
-     *
+     * @param mixed $file
      */
     public function getGlossaryWords($file)
     {
@@ -33,6 +33,7 @@ class DefaultParser
 
     /**
      * @param $string
+     *
      * @return array
      */
     public static function getWords($string)
@@ -52,7 +53,7 @@ class DefaultParser
     }
 
     /**
-     *
+     * @param mixed $string
      */
     public static function isStrictSourceCodeString($string)
     {

@@ -16,14 +16,14 @@ class AddCommandTest extends TestCase
         $scaffoldDirectory = __DIR__.'/../'.$scaffoldDirectoryName;
 
         if (file_exists($scaffoldDirectory)) {
-            (new Filesystem)->remove($scaffoldDirectory);
+            (new Filesystem())->remove($scaffoldDirectory);
         }
 
         mkdir($scaffoldDirectory);
-        copy('tests/fixtures/composer.json', $scaffoldDirectory . '/composer.json');
+        copy('tests/fixtures/composer.json', $scaffoldDirectory.'/composer.json');
 
         $app = new Application('Larawal');
-        $app->add(new AddCommand);
+        $app->add(new AddCommand());
 
         $tester = new CommandTester($app->find('add'));
 
