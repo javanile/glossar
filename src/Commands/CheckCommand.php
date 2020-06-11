@@ -20,7 +20,8 @@ class CheckCommand extends BaseCommand
         $this
             ->setName('check')
             ->setDescription('Run one or all checks')
-            ->addArgument('check-name', InputArgument::OPTIONAL)
+            //->addArgument('check-name', InputArgument::OPTIONAL)
+            ->addOption('--filter', null, InputOption::VALUE_REQUIRED, 'Stop execution if check fail')
             ->addOption('--stop-on-failure', null, InputOption::VALUE_NONE, 'Stop execution if check fail');
     }
 
@@ -37,7 +38,7 @@ class CheckCommand extends BaseCommand
     {
         $this->credits($output);
 
-        $selectedCheckName = $input->getArgument('check-name');
+        //$selectedCheckName = $input->getArgument('check-name');
 
         $config = $this->getApplication()->getConfig();
 

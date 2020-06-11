@@ -2,15 +2,15 @@
 
 namespace Laravel\Installer\Console\Tests;
 
-use Larawal\Installer\Console\AddCommand;
+use Larawal\Installer\Console\InstallCommand;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;
 
-class AddCommandTest extends TestCase
+class DefaultCommandTest extends TestCase
 {
-    public function test_it_can_add_brick_from_registry()
+    public function test_it_can_install_from_config_file()
     {
         $scaffoldDirectoryName = 'tests/output/my-blog';
         $scaffoldDirectory = __DIR__.'/../'.$scaffoldDirectoryName;
@@ -20,16 +20,17 @@ class AddCommandTest extends TestCase
         }
 
         mkdir($scaffoldDirectory);
-        copy('tests/fixtures/composer.json', $scaffoldDirectory.'/composer.json');
+        copy('tests/fixtures/larawal.json', $scaffoldDirectory.'/larawal.json');
 
         $app = new Application('Larawal');
-        $app->add(new AddCommand());
+        $app->add(new InstallCommand());
 
-        $tester = new CommandTester($app->find('add'));
+        $tester = new CommandTester($app->find('install'));
 
-        $statusCode = $tester->execute(['brick' => 'blog', '--path' => $scaffoldDirectoryName]);
+        $statusCode = $tester->execute(['--path' => $scaffoldDirectoryName]);
 
         $this->assertEquals($statusCode, 0);
         $this->assertDirectoryExists($scaffoldDirectory.'/vendor');
+        $this->assertFileExists($scaffoldDirectory.'/.env');
     }
 }
