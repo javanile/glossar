@@ -5,7 +5,7 @@ namespace Glossarize\Analysis\Rudiments;
 use Webmozart\Glob\Glob;
 use Webmozart\PathUtil\Path;
 
-trait ExpectedStringsLanguage
+trait StringsLanguage
 {
     /**
      *

@@ -52,6 +52,20 @@ class Config
     }
 
     /**
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     */
+    public function __call($name, $arguments)
+    {
+        if ($name === 'default') {
+            return call_user_func_array([$this, 'customDefault'], $arguments);
+        } else {
+            die("Glossarize: not support for '{$name}'");
+        }
+    }
+
+    /**
      *
      */
     public function getCwd()
@@ -96,7 +110,21 @@ class Config
      */
     public function check($checkName, $checkOptions)
     {
+        if (isset($this->config['check'][$checkName])) {
+            echo "[ERROR] Check '{$checkName}' already defined.\n";
+            debug_print_backtrace();
+            exit(1);
+        }
+
         $this->config['check'][$checkName] = new Check($this->source, $checkOptions);
+    }
+
+    /**
+     *
+     */
+    protected function customDefault($defaultOptions)
+    {
+        //$this->config['check'][$checkName] = new Check($this->source, $checkOptions);
     }
 
     /**

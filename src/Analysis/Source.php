@@ -8,8 +8,9 @@ use Webmozart\PathUtil\Path;
 class Source
 {
     use Rudiments\GlossaryAnalysis;
-    use Rudiments\ExpectedStringsLanguage;
-    use Rudiments\ExpectedArrayValuesLanguage;
+    use Rudiments\StringsLanguage;
+    use Rudiments\ArrayValuesLanguage;
+    use Rudiments\StrictSourceCode;
 
     /**
      *

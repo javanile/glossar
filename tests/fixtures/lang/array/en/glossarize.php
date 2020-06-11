@@ -12,7 +12,7 @@ $array = array(
 
 return [
     'LBL_NEW_VERSION_AVAILABLE' => 'Version Please update!',
-    'LBL_NEW_VERSION_AVAILABLE2' => 'Ciao come stai',
+    'LBL_NEW_VERSION_AVAILABLE2' => 'Version Please update!',
 ];
 
 
