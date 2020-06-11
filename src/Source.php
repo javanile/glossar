@@ -41,6 +41,8 @@ class Source
      * Config constructor.
      *
      * @param $config
+     * @param mixed $pattern
+     * @param mixed $path
      */
     public function __construct($config, $pattern, $path)
     {
@@ -71,6 +73,7 @@ class Source
 
     /**
      * @param $var
+     * @param mixed $value
      */
     public function set($var, $value)
     {
@@ -106,11 +109,11 @@ class Source
     }
 
     /**
-     *
+     * @param mixed $dir
      */
     public function scan($dir)
     {
-        $source = new Source($this->getConfig(), $this->pattern, $this->path . '/' . $dir);
+        $source = new self($this->getConfig(), $this->pattern, $this->path.'/'.$dir);
 
         $source->setVars($this->vars);
 
@@ -119,6 +122,7 @@ class Source
 
     /**
      * @param $var
+     * @param mixed $words
      */
     public function ignoreWords($words)
     {

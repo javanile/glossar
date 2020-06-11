@@ -3,8 +3,6 @@
 namespace Javanile\Glossar\Rudiments;
 
 use Glossarize\Analysis\Parsers\DefaultParser;
-use Webmozart\Glob\Glob;
-use Webmozart\PathUtil\Path;
 
 trait StrictSourceCode
 {

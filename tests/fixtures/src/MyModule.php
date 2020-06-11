@@ -1,9 +1,9 @@
 <?php
 
-class MyModule {
-
+class MyModule
+{
     public function getMessage()
     {
-        return "Welcome Friend!";
+        return 'Welcome Friend!';
     }
 }

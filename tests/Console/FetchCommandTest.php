@@ -16,11 +16,11 @@ class FetchCommandTest extends TestCase
         $scaffoldDirectory = __DIR__.'/../'.$scaffoldDirectoryName;
 
         if (file_exists($scaffoldDirectory)) {
-            (new Filesystem)->remove($scaffoldDirectory);
+            (new Filesystem())->remove($scaffoldDirectory);
         }
 
         $app = new Application('Larawal');
-        $app->add(new CheckCommand);
+        $app->add(new CheckCommand());
 
         $tester = new CommandTester($app->find('fetch'));
 

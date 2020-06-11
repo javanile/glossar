@@ -16,14 +16,14 @@ class InstallCommandTest extends TestCase
         $scaffoldDirectory = __DIR__.'/../'.$scaffoldDirectoryName;
 
         if (file_exists($scaffoldDirectory)) {
-            (new Filesystem)->remove($scaffoldDirectory);
+            (new Filesystem())->remove($scaffoldDirectory);
         }
 
         mkdir($scaffoldDirectory);
-        copy('tests/fixtures/larawal.json', $scaffoldDirectory . '/larawal.json');
+        copy('tests/fixtures/larawal.json', $scaffoldDirectory.'/larawal.json');
 
         $app = new Application('Larawal');
-        $app->add(new InstallCommand);
+        $app->add(new InstallCommand());
 
         $tester = new CommandTester($app->find('install'));
 

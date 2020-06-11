@@ -2,8 +2,8 @@
 
 namespace Javanile\Glossar;
 
-use PhpSpellcheck\Spellchecker\Aspell;
 use Glossarize\Analysis\Parsers\DefaultParser;
+use PhpSpellcheck\Spellchecker\Aspell;
 
 class Config
 {
@@ -36,17 +36,18 @@ class Config
      * Config constructor.
      *
      * @param $config
+     * @param mixed $cwd
      */
     public function __construct($cwd)
     {
         $this->cwd = $cwd;
 
         $this->config = [
-            'init' => [],
+            'init'  => [],
             'check' => [],
         ];
 
-        $this->parser = new DefaultParser;
+        $this->parser = new DefaultParser();
         $this->source = new Source($this, '**/*.php', $this->cwd);
         $this->spellChecker = null;
     }
@@ -54,6 +55,7 @@ class Config
     /**
      * @param $name
      * @param $arguments
+     *
      * @return mixed
      */
     public function __call($name, $arguments)
@@ -98,7 +100,7 @@ class Config
     }
 
     /**
-     *
+     * @param mixed $initOptions
      */
     public function init($initOptions)
     {
@@ -106,7 +108,8 @@ class Config
     }
 
     /**
-     *
+     * @param mixed $checkName
+     * @param mixed $checkOptions
      */
     public function check($checkName, $checkOptions)
     {
@@ -120,7 +123,7 @@ class Config
     }
 
     /**
-     *
+     * @param mixed $defaultOptions
      */
     protected function customDefault($defaultOptions)
     {
@@ -136,7 +139,7 @@ class Config
             if (is_callable($init)) {
                 call_user_func_array($init, [$this->source]);
             } else {
-                die("Init options are not callable");
+                die('Init options are not callable');
             }
         }
 

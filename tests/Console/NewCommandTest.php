@@ -16,11 +16,11 @@ class NewCommandTest extends TestCase
         $scaffoldDirectory = __DIR__.'/../'.$scaffoldDirectoryName;
 
         if (file_exists($scaffoldDirectory)) {
-            (new Filesystem)->remove($scaffoldDirectory);
+            (new Filesystem())->remove($scaffoldDirectory);
         }
 
         $app = new Application('Larawal');
-        $app->add(new NewCommand);
+        $app->add(new NewCommand());
 
         $tester = new CommandTester($app->find('new'));
 

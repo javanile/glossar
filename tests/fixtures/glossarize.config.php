@@ -1,6 +1,6 @@
 <?php
 
-glossarize()->init(function($source) {
+glossarize()->init(function ($source) {
     $source->set('languages', ['en', 'it']);
     $source->set('spellchecker', 'hunspell');
 });
@@ -15,7 +15,7 @@ glossarize()->default(function($source) {
     }
 });
 */
-glossarize()->check('Expected array string values language', function($source) {
+glossarize()->check('Expected array string values language', function ($source) {
     foreach ($source->get('languages') as $lang) {
         $source
             ->scan('lang/array/'.$lang)

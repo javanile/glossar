@@ -2,10 +2,6 @@
 
 namespace Javanile\Glossar\Rudiments;
 
-use Webmozart\Glob\Glob;
-use Webmozart\PathUtil\Path;
-use Stringy\StaticStringy as S;
-
 trait GlossaryAnalysis
 {
     /**
