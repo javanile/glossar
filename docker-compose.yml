@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  php:
+    build: .
+    volumes:
+      - .:/app
+
+  phpunit:
+    build: .
+    entrypoint: ["phpunit"]
+    volumes:
+      - .:/app
+

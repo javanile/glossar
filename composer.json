@@ -24,7 +24,7 @@
         "phpunit/phpunit": "^8.0"
     },
     "bin": [
-        "bin/glossarize"
+        "bin/glossar"
     ],
     "autoload": {
         "psr-4": {
