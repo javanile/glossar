@@ -8,7 +8,6 @@ services:
 
   phpunit:
     build: .
-    entrypoint: ["phpunit"]
+    entrypoint: ["/app/vendor/bin/phpunit"]
     volumes:
       - .:/app
-

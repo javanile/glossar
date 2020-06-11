@@ -3,7 +3,7 @@
 /**
  * Configuration interceptor.
  */
-function glossarize()
+function glossar()
 {
     global $config;
 
