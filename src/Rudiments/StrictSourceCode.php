@@ -1,6 +1,6 @@
 <?php
 
-namespace Glossarize\Analysis\Rudiments;
+namespace Javanile\Glossar\Rudiments;
 
 use Glossarize\Analysis\Parsers\DefaultParser;
 use Webmozart\Glob\Glob;

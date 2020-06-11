@@ -1,6 +1,6 @@
 <?php
 
-namespace Glossarize\Console;
+namespace Javanile\Glossar;
 
 use GuzzleHttp\Client;
 use RuntimeException;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Glossarize\Analysis\Parsers;
+namespace Javanile\Glossar\Parsers;
 
 use Stringy\StaticStringy as S;
 

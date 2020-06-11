@@ -1,6 +1,6 @@
 <?php
 
-namespace Glossarize\Analysis;
+namespace Javanile\Glossar;
 
 use Webmozart\Glob\Glob;
 use Webmozart\PathUtil\Path;

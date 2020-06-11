@@ -1,6 +1,6 @@
 <?php
 
-namespace Glossarize\Analysis\Rudiments;
+namespace Javanile\Glossar\Rudiments;
 
 use Webmozart\Glob\Glob;
 use Webmozart\PathUtil\Path;

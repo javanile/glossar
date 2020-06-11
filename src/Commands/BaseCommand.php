@@ -1,6 +1,6 @@
 <?php
 
-namespace Glossarize\Console\Commands;
+namespace Javanile\Glossar\Commands;
 
 use GuzzleHttp\Client;
 use RuntimeException;
@@ -22,7 +22,7 @@ abstract class BaseCommand extends Command
      */
     protected function credits(OutputInterface $output)
     {
-        $output->writeln("Glossarize 0.1.0 by Francesco Bianco and contributors.\n");
+        $output->writeln("Glossar 0.1.0 by Francesco Bianco and contributors.\n");
     }
 
     /**

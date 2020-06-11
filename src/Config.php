@@ -1,6 +1,6 @@
 <?php
 
-namespace Glossarize\Analysis;
+namespace Javanile\Glossar;
 
 use PhpSpellcheck\Spellchecker\Aspell;
 use Glossarize\Analysis\Parsers\DefaultParser;

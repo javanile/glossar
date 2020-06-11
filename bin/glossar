@@ -8,26 +8,26 @@ if (file_exists(__DIR__.'/../../../autoload.php')) {
 }
 
 $cwd = getcwd();
-$config = new Glossarize\Analysis\Config($cwd);
+$config = new Javanile\Glossar\Config($cwd);
 
 try {
-    if (file_exists($cwd . '/glossarize.config.php')) {
-        include_once $cwd . '/glossarize.config.php';
+    if (file_exists($cwd . '/glossar.config.php')) {
+        include_once $cwd . '/glossar.config.php';
     }
 } catch (Throwable $error) {
-    echo "Glossarize: Config file error\n";
+    echo "Glossar: Config file error\n";
     echo "  > " . $error->getMessage() . " on " . $error->getFile() . " line " . $error->getLine() . "\n";
     exit(1);
 }
 
-$app = new Glossarize\Console\Application($config);
+$app = new Javanile\Glossar\Application($config);
 
-$defaultCommand = new Glossarize\Console\Commands\DefaultCommand;
+$defaultCommand = new Javanile\Glossar\Commands\DefaultCommand;
 
 $app->add($defaultCommand);
 $app->setDefaultCommand($defaultCommand->getName());
 
-$app->add(new Glossarize\Console\Commands\CheckCommand);
+$app->add(new Javanile\Glossar\Commands\CheckCommand);
 #$app->add(new Glossarize\Console\Commands\NewCommand);
 #$app->add(new Glossarize\Console\Commands\FetchCommand);
 #$app->add(new Glossarize\Console\Commands\InstallCommand);

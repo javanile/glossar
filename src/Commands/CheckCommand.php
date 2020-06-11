@@ -1,6 +1,6 @@
 <?php
 
-namespace Glossarize\Console\Commands;
+namespace Javanile\Glossar\Commands;
 
 use GuzzleHttp\Client;
 use RuntimeException;
@@ -14,7 +14,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 use ZipArchive;
 
-class DefaultCommand extends BaseCommand
+class CheckCommand extends BaseCommand
 {
     /**
      * Configure the command options.
@@ -24,12 +24,15 @@ class DefaultCommand extends BaseCommand
     protected function configure()
     {
         $this
-            ->setName('default')
-            ->setDescription('Run glossary analysis as standard PHP package');
+            ->setName('check')
+            ->setDescription('Run one or all checks')
+            ->addArgument('check-name', InputArgument::OPTIONAL)
+            ->addOption('--stop-on-failure', null, InputOption::VALUE_NONE, 'Stop execution if check fail');
     }
 
     /**
      * Execute the command.
+     *
      *
      * @param  \Symfony\Component\Console\Input\InputInterface  $input
      * @param  \Symfony\Component\Console\Output\OutputInterface  $output
@@ -39,13 +42,18 @@ class DefaultCommand extends BaseCommand
     {
         $this->credits($output);
 
+        $selectedCheckName = $input->getArgument('check-name');
+
         $config = $this->getApplication()->getConfig();
 
         $config->bootstrap();
 
-        $source = $config->getSource();
-
-        $source->scan('src')->glossaryAnalysis();
+        foreach ($config->getChecks() as $checkName => $check) {
+            $output->writeln("<info>===> {$checkName}</info>");
+            $check->execute([
+                'stop-on-failure' => $input->getOption('stop-on-failure'),
+            ]);
+        }
 
         return 0;
     }
