@@ -1,6 +1,6 @@
 # Glossar
 
-
+[![StyleCI](https://github.styleci.io/repos/248269380/shield?branch=master)](https://github.styleci.io/repos/248269380)
 
 
 
