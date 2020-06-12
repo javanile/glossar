@@ -2,7 +2,7 @@
 
 namespace Javanile\Glossar;
 
-use Glossarize\Analysis\Parsers\DefaultParser;
+use Javanile\Glossar\Parsers\DefaultParser;
 use PhpSpellcheck\Spellchecker\Aspell;
 
 class Config
