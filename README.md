@@ -1,5 +1,7 @@
 # Glossar
 
+[![Build Status](https://travis-ci.org/javanile/glossar.svg?branch=master)](https://travis-ci.org/javanile/glossar)
+
 [![StyleCI](https://github.styleci.io/repos/248269380/shield?branch=master)](https://github.styleci.io/repos/248269380)
 
 
