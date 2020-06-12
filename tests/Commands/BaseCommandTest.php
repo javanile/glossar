@@ -2,7 +2,7 @@
 
 namespace Laravel\Installer\Console\Tests;
 
-use Larawal\Installer\Console\AddCommand;
+use Javanile\Glossar\Config;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -12,6 +12,8 @@ class BaseCommandTest extends TestCase
 {
     public function test_it_can_add_brick_from_registry()
     {
+        $config = new Config('asd');
+        $this->assertTrue(is_object($config));
         /*
         $scaffoldDirectoryName = 'tests/output/my-blog';
         $scaffoldDirectory = __DIR__.'/../'.$scaffoldDirectoryName;
