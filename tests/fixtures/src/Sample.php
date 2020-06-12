@@ -1,19 +1,19 @@
 <?php
 
-class Sample {
-
-    function cavallo () {
-
+class Sample
+{
+    public function cavallo()
+    {
     }
 
-    function getMyModule() {
-
-        "abc-def";
-        echo "Ciao come stai?";
-        echo __("WELLCOME_MESSAGE");
+    public function getMyModule()
+    {
+        'abc-def';
+        echo 'Ciao come stai?';
+        echo __('WELLCOME_MESSAGE');
 
         $varName = 10;
 
-        return new MyModule;
+        return new MyModule();
     }
 }

@@ -2,13 +2,10 @@
 
 namespace Javanile\Glossar\Rudiments;
 
-use Webmozart\Glob\Glob;
-use Webmozart\PathUtil\Path;
-
 trait ArrayValuesLanguage
 {
     /**
-     *
+     * @param mixed $language
      */
     public function expectedArrayValuesLanguageIs($language)
     {
@@ -27,11 +24,11 @@ trait ArrayValuesLanguage
                 $misspellings = $spellChecker->check($string, [$language]);
                 foreach ($misspellings as $misspelling) {
                     $word = $misspelling->getWord();
-                    $wordLine = $stringLine + $misspelling->getLineNumber() - 1 ;
+                    $wordLine = $stringLine + $misspelling->getLineNumber() - 1;
                     echo "[FAIL] {$file['relative']}($wordLine): Misspelled word '{$word}' for language '{$language}' in '{$string}.'\n";
                     if ($stopOnFailure) {
-                        #$suggestions = $misspelling->getSuggestions();
-                        #echo $suggestions ? '(SUGGESTION!) Replace with one of this: ' . implode(', ', $suggestions) . "\n" : '';
+                        //$suggestions = $misspelling->getSuggestions();
+                        //echo $suggestions ? '(SUGGESTION!) Replace with one of this: ' . implode(', ', $suggestions) . "\n" : '';
                         exit(1);
                     }
                     $failure = true;

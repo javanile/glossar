@@ -18,6 +18,8 @@ class Check
      * Config constructor.
      *
      * @param $config
+     * @param mixed $source
+     * @param mixed $options
      */
     public function __construct($source, $options)
     {
@@ -26,7 +28,7 @@ class Check
     }
 
     /**
-     *
+     * @param mixed $vars
      */
     public function execute($vars = [])
     {
@@ -35,7 +37,7 @@ class Check
         if (is_callable($this->options)) {
             call_user_func_array($this->options, [$this->source]);
         } else {
-            die("Check options are not callable");
+            die('Check options are not callable');
         }
     }
 }
