@@ -6,7 +6,8 @@ services:
     build: .
     volumes:
       - .:/app
-      - ./.tmp:/root
+      - ./.tmp/.composer:/.composer
+      - ./.tmp/.composer:/root/.composer
 
   composer: { <<: *php, entrypoint: ["composer"] }
 

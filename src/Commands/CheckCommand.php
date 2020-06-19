@@ -17,6 +17,8 @@ class CheckCommand extends BaseCommand
      */
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setName('check')
             ->setDescription('Run one or all checks')

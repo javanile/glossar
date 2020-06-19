@@ -22,7 +22,7 @@ try {
 
 $app = new Javanile\Glossar\Application($config);
 
-$defaultCommand = new Javanile\Glossar\Commands\DefaultCommand;
+$defaultCommand = new Javanile\Glossar\Commands\GlossaryAnalysisCommand;
 
 $app->add($defaultCommand);
 $app->setDefaultCommand($defaultCommand->getName());
@@ -32,4 +32,10 @@ $app->add(new Javanile\Glossar\Commands\CheckCommand);
 #$app->add(new Glossarize\Console\Commands\FetchCommand);
 #$app->add(new Glossarize\Console\Commands\InstallCommand);
 
-$app->run();
+try {
+    $app->run();
+} catch (Throwable $error) {
+    echo "Glossar: Runtime error\n";
+    echo "  > " . $error->getMessage() . " on " . $error->getFile() . " line " . $error->getLine() . "\n";
+    exit(2);
+}

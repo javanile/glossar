@@ -70,17 +70,25 @@ class PhpParser
         $words = [];
 
         $validWordsToken = [
-            'T_STRING',
-            'T_CONSTANT_ENCAPSED_STRING',
-            'T_VARIABLE',
+            'T_STRING' => 'string',
+            'T_CONSTANT_ENCAPSED_STRING' => 'string',
+            'T_VARIABLE' => 'literal',
         ];
 
         foreach ($tokens as $token) {
             $tokenName = is_array($token) ? token_name($token[0]) : $token;
-            if (in_array($tokenName, $validWordsToken)) {
+            if (isset($validWordsToken[$tokenName])) {
                 $tokenWords = DefaultParser::getWords($token[1]);
+                $span = count($tokenWords);
                 foreach ($tokenWords as $word) {
-                    $words[$word][] = [$file, $token[2]];
+                    $words[$word][] = [
+                        'file' => $file,
+                        'line' => $token[2],
+                        'type' => $validWordsToken[$tokenName],
+                        'name' => $tokenName,
+                        'span' => $span,
+                        'size' => strlen($token[1])
+                    ];
                 }
             } else {
                 //var_dump($tokenName, $token);
