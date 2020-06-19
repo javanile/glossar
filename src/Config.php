@@ -30,6 +30,16 @@ class Config
     /**
      *
      */
+    protected $reporter;
+
+    /**
+     *
+     */
+    protected $output;
+
+    /**
+     *
+     */
     protected $spellChecker;
 
     /**
@@ -49,6 +59,7 @@ class Config
 
         $this->parser = new DefaultParser();
         $this->source = new Source($this, '**/*.php', $this->cwd);
+        $this->reporter = new Reporter($this);
         $this->spellChecker = null;
     }
 
@@ -63,7 +74,7 @@ class Config
         if ($name === 'default') {
             return call_user_func_array([$this, 'customDefault'], $arguments);
         } else {
-            die("Glossarize: not support for '{$name}'");
+            die("Glossar: not support for '{$name}'");
         }
     }
 
@@ -100,6 +111,14 @@ class Config
     }
 
     /**
+     * Get application reporter.
+     */
+    public function getReporter()
+    {
+        return $this->config;
+    }
+
+    /**
      * @param mixed $initOptions
      */
     public function init($initOptions)
@@ -133,8 +152,10 @@ class Config
     /**
      *
      */
-    public function bootstrap()
+    public function bootstrap($output)
     {
+        $this->output = $output;
+
         foreach ($this->config['init'] as $init) {
             if (is_callable($init)) {
                 call_user_func_array($init, [$this->source]);

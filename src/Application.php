@@ -2,14 +2,14 @@
 
 namespace Javanile\Glossar;
 
-use Symfony\Component\Console\Application as ConsoleApplication
+use Symfony\Component\Console\Application as ConsoleApplication;
 
 class Application extends ConsoleApplication
 {
     /**
      * Application configuration.
      *
-     * @param $config
+     * @param Config
      */
     protected $config;
 

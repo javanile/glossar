@@ -5,7 +5,7 @@
  */
 function glossar()
 {
-    global $config;
+    global $glossarConfig;
 
-    return $config;
+    return $glossarConfig;
 }

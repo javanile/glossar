@@ -2,7 +2,7 @@
 
 namespace Javanile\Glossar\Rudiments;
 
-class ArrayValuesLanguage extends Rudiment
+class ArrayValuesLanguageIs extends BaseRudiment
 {
     /**
      * @param mixed $language
@@ -12,10 +12,9 @@ class ArrayValuesLanguage extends Rudiment
         $files = $this->getFiles();
         $parser = $this->getConfig()->getParser();
         $spellChecker = $this->getConfig()->getSpellChecker();
+        $reporter = $this->getConfig()->getReporter();
         //$output = $this->getConfig()->getSpellChecker();
-        $stopOnFailure = $this->get('stop-on-failure');
 
-        $failure = false;
         foreach ($files as $file) {
             $strings = $parser->getArrayStringValues($file['filename']);
             foreach ($strings as $stringData) {
@@ -25,17 +24,9 @@ class ArrayValuesLanguage extends Rudiment
                 foreach ($misspellings as $misspelling) {
                     $word = $misspelling->getWord();
                     $wordLine = $stringLine + $misspelling->getLineNumber() - 1;
-                    echo "[FAIL] {$file['relative']}($wordLine): Misspelled word '{$word}' for language '{$language}' in '{$string}.'\n";
-                    if ($stopOnFailure) {
-                        //$suggestions = $misspelling->getSuggestions();
-                        //echo $suggestions ? '(SUGGESTION!) Replace with one of this: ' . implode(', ', $suggestions) . "\n" : '';
-                        exit(1);
-                    }
-                    $failure = true;
+                    $reporter->error("{$file['relative']}($wordLine): Misspelled word '{$word}' for language '{$language}' in '{$string}'".);
                 }
             }
         }
-
-        return $this;
     }
 }

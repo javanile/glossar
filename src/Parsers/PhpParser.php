@@ -5,7 +5,11 @@ namespace Javanile\Glossar\Parsers;
 class PhpParser
 {
     /**
+     * Sanitize string.
+     *
      * @param mixed $string
+     *
+     * @return string
      */
     public static function sanitizeString($string)
     {

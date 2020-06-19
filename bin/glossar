@@ -8,7 +8,7 @@ if (file_exists(__DIR__.'/../../../autoload.php')) {
 }
 
 $cwd = getcwd();
-$config = new Javanile\Glossar\Config($cwd);
+$glossarConfig = new Javanile\Glossar\Config($cwd);
 
 try {
     if (file_exists($cwd . '/glossar.config.php')) {
@@ -20,7 +20,7 @@ try {
     exit(1);
 }
 
-$app = new Javanile\Glossar\Application($config);
+$app = new Javanile\Glossar\Application($glossarConfig);
 
 $defaultCommand = new Javanile\Glossar\Commands\GlossaryAnalysisCommand;
 
