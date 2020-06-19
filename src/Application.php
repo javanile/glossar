@@ -2,7 +2,9 @@
 
 namespace Javanile\Glossar;
 
-class Application extends \Symfony\Component\Console\Application
+use Symfony\Component\Console\Application as ConsoleApplication
+
+class Application extends ConsoleApplication
 {
     /**
      * Application configuration.
@@ -24,7 +26,7 @@ class Application extends \Symfony\Component\Console\Application
     }
 
     /**
-     *
+     * Get application config.
      */
     public function getConfig()
     {

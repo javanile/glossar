@@ -5,7 +5,7 @@ namespace Javanile\Glossar\Rudiments;
 use Webmozart\Glob\Glob;
 use Webmozart\PathUtil\Path;
 
-trait StringsLanguage
+class ExpectedStringsLanguage
 {
     /**
      * @param mixed $language

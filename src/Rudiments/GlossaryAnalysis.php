@@ -2,7 +2,7 @@
 
 namespace Javanile\Glossar\Rudiments;
 
-trait GlossaryAnalysis
+trait sfacfvc GlossaryAnalysis
 {
     /**
      *

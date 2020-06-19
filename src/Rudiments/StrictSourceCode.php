@@ -4,7 +4,7 @@ namespace Javanile\Glossar\Rudiments;
 
 use Glossarize\Analysis\Parsers\DefaultParser;
 
-trait StrictSourceCode
+class ExpectedStrictSourceCode extends Rudiment
 {
     /**
      *
@@ -12,6 +12,7 @@ trait StrictSourceCode
     public function expectedStrictSourceCode()
     {
         $files = $this->getFiles();
+        $reporter = $this->getReporter();
         $parser = $this->getConfig()->getParser();
         $spellChecker = $this->getConfig()->getSpellChecker();
 

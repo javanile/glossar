@@ -134,4 +134,17 @@ class Source
 
         return $this;
     }
+
+    /**
+     *
+     */
+    public function __call($method, $args)
+    {
+        $rudimentClass = ucfirst($method);
+        $rudiment = new $rudimentClass;
+
+        call_user_func_array([$rudiment, $method], $args);
+
+        return $this;
+    }
 }

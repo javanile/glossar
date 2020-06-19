@@ -2,12 +2,12 @@
 
 namespace Javanile\Glossar\Rudiments;
 
-trait ArrayValuesLanguage
+class ArrayValuesLanguage extends Rudiment
 {
     /**
      * @param mixed $language
      */
-    public function expectedArrayValuesLanguageIs($language)
+    public function arrayValuesLanguageIs($language)
     {
         $files = $this->getFiles();
         $parser = $this->getConfig()->getParser();

@@ -1,5 +1,11 @@
 {
     "init": {
 
+    },
+
+    "rules": {
+        "Javanile\\Glossar\\Rudiments\\GlossaryAnalysis": {
+            "ignoreWordTypes": ["literal"]
+        }
     }
 }
