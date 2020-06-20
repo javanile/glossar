@@ -3,7 +3,7 @@
 
     },
 
-    "rules": {
+    "rudiments": {
         "Javanile\\Glossar\\Rudiments\\GlossaryAnalysis": {
             "ignoreWordTypes": ["literal"]
         }

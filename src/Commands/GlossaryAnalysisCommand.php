@@ -38,7 +38,7 @@ class GlossaryAnalysisCommand extends BaseCommand
 
         $config = $this->getApplication()->getConfig();
 
-        $config->bootstrap();
+        $config->bootstrap($output);
 
         $source = $config->getSource();
 

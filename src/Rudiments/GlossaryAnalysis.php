@@ -2,7 +2,7 @@
 
 namespace Javanile\Glossar\Rudiments;
 
-trait sfacfvc GlossaryAnalysis
+class GlossaryAnalysis extends BaseRudiment
 {
     /**
      *
@@ -10,6 +10,8 @@ trait sfacfvc GlossaryAnalysis
     public function glossaryAnalysis()
     {
         $files = $this->getFiles();
+        var_dump($files);
+
         $parser = $this->getConfig()->getParser();
         $spellChecker = $this->getConfig()->getSpellChecker();
         $stopOnFailure = $this->get('stop-on-failure');

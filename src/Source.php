@@ -7,11 +7,6 @@ use Webmozart\PathUtil\Path;
 
 class Source
 {
-    use Rudiments\GlossaryAnalysis;
-    use Rudiments\StringsLanguage;
-    use Rudiments\ArrayValuesLanguage;
-    use Rudiments\StrictSourceCode;
-
     /**
      *
      */
@@ -64,7 +59,11 @@ class Source
     }
 
     /**
+     * Get setting value for current source.
+     *
      * @param $var
+     *
+     * @return mixed
      */
     public function get($var)
     {
@@ -136,15 +135,26 @@ class Source
     }
 
     /**
+     * Capture rudiments method called by config file.
      *
+     * @param $method
+     * @param $args
+     *
+     * @return Source
      */
     public function __call($method, $args)
     {
-        $rudimentClass = ucfirst($method);
-        $rudiment = new $rudimentClass;
+        $config = $this->getConfig();
+        $rudiments = $config->getRudiments();
+        $rudimentClassName = ucfirst($method);
 
-        call_user_func_array([$rudiment, $method], $args);
-
-        return $this;
+        foreach ($rudiments as $rudiment) {
+            $rudimentClass = substr($rudiment, -1) == '\\' ? $rudiment . $rudimentClassName : '';
+            if (class_exists($rudimentClass)) {
+                $rudimentInstance = new $rudimentClass($config, $this);
+                call_user_func_array([$rudimentInstance, $method], $args);
+                return $this;
+            }
+        }
     }
 }

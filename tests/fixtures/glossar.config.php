@@ -2,10 +2,15 @@
 
 glossar()->init(function($source) {
     $source->set('languages', ['en', 'it']);
-    $source->set('spellchecker', 'hunspell');
+    $source->set('spellChecker', 'hunspell');
 });
 
+glossar()->rudiments([
+    ''
+]);
+
 /*
+// Override default command
 glossar()->default(function($source) {
     foreach ($source->get('languages') as $lang) {
         $source
@@ -24,11 +29,11 @@ glossar()->check('Expected array string values language', function ($source) {
     }
 });
 /*
-glossarize()->check('Expected strict source code', function($source) {
+glossar()->check('Expected strict source code', function($source) {
     $source->scan('src')->strictSourceCode();
 });
 
-glossarize()->check('Array keys are used', function($source) {
+glossar()->check('Array keys are used', function($source) {
     foreach ($source->get('languages') as $lang) {
         $source
             ->scan('lang/array/'.$lang)
@@ -36,7 +41,7 @@ glossarize()->check('Array keys are used', function($source) {
     }
 });
 
-glossarize()->check('Expected matched strings are array keys', function($source) {
+glossar()->check('Expected matched strings are array keys', function($source) {
     foreach ($source->get('languages') as $lang) {
         $source
             ->scan('src')
@@ -45,18 +50,18 @@ glossarize()->check('Expected matched strings are array keys', function($source)
 });
 
 /*
-glossarize()->check('Search Whore Words', function($source) {
+glossar()->check('Search Whore Words', function($source) {
     $source->scan('src')->searchWhoreWords();
 });
 
-glossarize()->check('Search Bads Words', function($source) {
+glossar()->check('Search Bads Words', function($source) {
     $source->scan('src')->searchBadWords([
         'malware', ''
     ]);
 });
 
 /*
-glossarize()->check('Expected array string values language', function($source) {
+glossar()->check('Expected array string values language', function($source) {
     foreach ($source->get('languages') as $lang) {
         $source->scan('lang/plain/'.$lang)->expectedStringsLanguageIs($lang);
     }
@@ -68,13 +73,13 @@ glossarize()->check('Expected array string values language', function($source) {
  *
  */
 /*
-glossarize()->check('missing3', function($source) {
+glossar()->check('missing3', function($source) {
     foreach ($languages as $language) {
         $source->strictScope($language, 'src/', 'lang/'.$language);
     }
 });
 
-glossarize()->check('missing3', function($source) use ($languages) {
+glossar()->check('missing3', function($source) use ($languages) {
     foreach ($languages as $language) {
         $source->strictScope($language, 'src/', 'lang/'.$language);
     }

@@ -119,6 +119,16 @@ class Config
     }
 
     /**
+     *
+     */
+    public function getRudiments()
+    {
+        return [
+            'Javanile\\Glossar\\Rudiments\\'
+        ];
+    }
+
+    /**
      * @param mixed $initOptions
      */
     public function init($initOptions)
